@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +24,7 @@ public class PlungerScript : MonoBehaviour
     void Update()
     {
         ballReady = ballList.Count > 0;
-        powerSlider.gameObject.SetActive(ballReady);
+        powerSlider.gameObject.SetActive(ballReady && NoMovingBalls());
         
         powerSlider.value = power;
 
@@ -68,5 +68,10 @@ public class PlungerScript : MonoBehaviour
             ballList.Remove(other.gameObject.GetComponent<Rigidbody>());
             power = 0f;
         }
+    }
+
+    private bool NoMovingBalls()
+    {
+        return ballList.All(ball => ball.velocity.magnitude == 0);
     }
 }
