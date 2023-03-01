@@ -6,6 +6,7 @@ public class PauseMenuScript : MonoBehaviour
 {
     public GameObject MainMenu;
     public GameObject PauseMenu;
+    public Field Game;
     public Button ReturnToGameButton;
     public Button MainMenuButton;
     public Button QuitGameButton;
@@ -60,6 +61,7 @@ public class PauseMenuScript : MonoBehaviour
 
     private void ReturnToMainMenu()
     {
+        Game.ResetGame();
         PauseMenu.SetActive(false);
         MainMenu.SetActive(true);
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallScript : MonoBehaviour
 {
     public float multiplier = 20f;
+    public AudioClip DeathJingle;
     void OnCollisionEnter(Collision other)
     {
         Booster booster = other.gameObject.GetComponent<Booster>();
@@ -15,5 +16,10 @@ public class BallScript : MonoBehaviour
             direction = -direction.normalized;
             GetComponent<Rigidbody>().AddForce(direction * booster.GetMultiplier);
         }
+    }
+
+    public void PlayDeathJingle()
+    {
+        GetComponent<AudioSource>().PlayOneShot(DeathJingle);
     }
 }

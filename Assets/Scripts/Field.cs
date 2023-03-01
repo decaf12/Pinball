@@ -5,7 +5,8 @@ using UnityEngine;
 public class Field : MonoBehaviour
 {
     private static Field _instance;
-    private List<Rigidbody> Balls = new List<Rigidbody>();
+    public Transform Spawn;
+    private List<BallScript> Balls = new List<BallScript>();
     public static Field instance
     {
         get
@@ -18,7 +19,6 @@ public class Field : MonoBehaviour
         }
     }
     
-    public Transform Spawn;
 
     public bool HasBall
     {
@@ -29,8 +29,7 @@ public class Field : MonoBehaviour
     {
         if (other.tag == "Ball")
         {
-            print("Spawning ball");
-            Balls.Add(other.GetComponent<Rigidbody>());
+            Balls.Add(other.GetComponent<BallScript>());
         }
     }
 
@@ -38,8 +37,16 @@ public class Field : MonoBehaviour
     {
         if (other.tag == "Ball")
         {
-            Balls.Remove(other.GetComponent<Rigidbody>());
+            BallScript ball = other.gameObject.GetComponent<BallScript>();
+            GetComponent<AudioSource>().PlayOneShot(ball.DeathJingle);
+            Balls.Remove(ball);
             Destroy(other.gameObject);
         }
+    }
+
+    public void ResetGame()
+    {
+        Balls.ForEach(ball => Destroy(ball.gameObject));
+        Balls.Clear();
     }
 }
