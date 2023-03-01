@@ -22,13 +22,14 @@ public class Field : MonoBehaviour
 
     public bool HasBall
     {
-        get => Balls.Count > 0;
+        get => GameObject.FindWithTag("Ball");
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Ball")
         {
+            print("Spawning ball");
             Balls.Add(other.GetComponent<Rigidbody>());
         }
     }

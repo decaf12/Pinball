@@ -5,18 +5,14 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public GameObject BallPrefab;
-    private static float Cooldown = 0f;
+    private static int BallCount = 0;
 
     void Update()
     {
         if (!Field.instance.HasBall)
         {
-            Cooldown += 0.1f;
-            if (Cooldown > 0.8f)
-            {
-                Cooldown = 0;
-                SpawnBall();
-            }
+            print($"Spawning ball #{++BallCount}");
+            SpawnBall();
         }
     }
 

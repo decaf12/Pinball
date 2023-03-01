@@ -1,15 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class PauseMenuScript : MonoBehaviour
 {
+    public GameObject MainMenu;
     public GameObject PauseMenu;
-    public Button ReturnToGame;
-    private bool IsPaused = false;
+    public Button ReturnToGameButton;
+    public Button MainMenuButton;
+    public Button QuitGameButton;
+    private bool IsPaused;
 
+    void Start()
+    {
+        IsPaused = false;
+    }
     void Awake()
     {
-        ReturnToGame.onClick.AddListener(Unpause);
+        ReturnToGameButton.onClick.AddListener(Unpause);
+        MainMenuButton.onClick.AddListener(ReturnToMainMenu);
+        QuitGameButton.onClick.AddListener(QuitGame);
     }
 
     // Update is called once per frame
@@ -40,5 +50,17 @@ public class PauseMenuScript : MonoBehaviour
         IsPaused = true;
         PauseMenu.SetActive(true);
         Time.timeScale = 0;
+    }
+
+    private void QuitGame()
+    {
+        EditorApplication.isPlaying = false;
+        Application.Quit();
+    }
+
+    private void ReturnToMainMenu()
+    {
+        PauseMenu.SetActive(false);
+        MainMenu.SetActive(true);
     }
 }
