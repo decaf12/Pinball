@@ -19,24 +19,20 @@ public class FlipperScript : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            print("D pressed");
             RightFlipper.motor = RotateFlipper(velocity, force);
         }
 
         if (Input.GetKeyUp(KeyCode.D))
         {
-            print("D released");
             RightFlipper.motor = RotateFlipper(-velocity, force);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            print("A pressed");
             LeftFlipper.motor = RotateFlipper(-velocity, force);
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            print("A released");
             LeftFlipper.motor = RotateFlipper(velocity, force);
         }
 

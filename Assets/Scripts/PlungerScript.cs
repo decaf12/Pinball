@@ -15,7 +15,6 @@ public class PlungerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("printing test");
         powerSlider.minValue = minPower;
         powerSlider.maxValue = maxPower;
         ballList = new List<Rigidbody>();
@@ -35,15 +34,12 @@ public class PlungerScript : MonoBehaviour
             {
                 if (power <= maxPower)
                 {
-                    Debug.Log("Powering up");
                     power += 50 * Time.deltaTime;
                 }
             }
 
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                Debug.Log("Launch!");
-
                 foreach (Rigidbody r in ballList)
                 {
                     r.AddForce(power * Vector3.forward);
@@ -59,7 +55,6 @@ public class PlungerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"other: {other.ToString()}");
         if (other.gameObject.CompareTag("Ball"))
         {
             ballList.Add(other.gameObject.GetComponent<Rigidbody>());
