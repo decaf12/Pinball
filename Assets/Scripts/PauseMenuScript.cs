@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseMenuScript : MonoBehaviour
 {
     public GameObject PauseMenu;
-    private bool IsPaused;
-    // Start is called before the first frame update
-    void Start()
+    public Button ReturnToGame;
+    private bool IsPaused = false;
+
+    void Awake()
     {
-        IsPaused = false;
+        ReturnToGame.onClick.AddListener(Unpause);
     }
 
     // Update is called once per frame
@@ -15,9 +17,28 @@ public class PauseMenuScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            IsPaused = !IsPaused;
-            PauseMenu.SetActive(IsPaused);
-            Time.timeScale = IsPaused ? 0 : 1;
+            if (IsPaused)
+            {
+                Unpause();
+            }
+            else
+            {
+                Pause();
+            }
         }
+    }
+
+    private void Unpause()
+    {
+        IsPaused = false;
+        PauseMenu.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    private void Pause()
+    {
+        IsPaused = true;
+        PauseMenu.SetActive(true);
+        Time.timeScale = 0;
     }
 }
