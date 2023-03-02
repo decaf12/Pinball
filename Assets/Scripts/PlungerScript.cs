@@ -8,23 +8,25 @@ public class PlungerScript : MonoBehaviour
     private float power;
     private float minPower = 0f;
     public float maxPower = 100f;
-    public Slider powerSlider;
+    public Slider PowerSlider;
+    public AudioClip LaunchSound;
     private bool ballReady;
 
     // Start is called before the first frame update
     void Start()
     {
-        powerSlider.minValue = minPower;
-        powerSlider.maxValue = maxPower;
+        PowerSlider.minValue = minPower;
+        PowerSlider.maxValue = maxPower;
+        gameObject.AddComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
         ballReady = BallList.instance.HasBalls();
-        powerSlider.gameObject.SetActive(ballReady && !BallList.instance.HasMovingBalls());
+        PowerSlider.gameObject.SetActive(ballReady && !BallList.instance.HasMovingBalls());
         
-        powerSlider.value = power;
+        PowerSlider.value = power;
 
         if (ballReady)
         {
@@ -39,6 +41,7 @@ public class PlungerScript : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 BallList.instance.Map(r => r.GetComponent<Rigidbody>().AddForce(power * Vector3.forward));
+                GetComponent<AudioSource>().PlayOneShot(LaunchSound);
             }
 
         }
@@ -47,14 +50,6 @@ public class PlungerScript : MonoBehaviour
             power = minPower;
         }
     }
-
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.gameObject.CompareTag("Ball"))
-    //     {
-    //         BallList.instance.Add(other.gameObject.GetComponent<BallScript>());
-    //     }
-    // }
 
     private void OnTriggerExit(Collider other)
     {

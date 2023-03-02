@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class BallList : MonoBehaviour
 {
-    private static BallList _instance;
     private List<BallScript> list = new List<BallScript>();
+    private static BallList _instance;
     public static BallList instance
     {
         get

@@ -130,7 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 5
-  DeathJingle: {fileID: 8300000, guid: 6e6bcf2c901872343aa04e3e041ff6df, type: 3}
+  DeathJingle: {fileID: 8300000, guid: e5500deb85115fa4fa5c0f6f6db6ad1b, type: 3}
+  CoinJingle: {fileID: 8300000, guid: 61f2b67586752e34e8c5e302a229a005, type: 3}
+  CollisionJingle: {fileID: 8300000, guid: dc4b502d6bfbb77498d67f88ca124cef, type: 3}
 --- !u!114 &2516647993139132749
 MonoBehaviour:
   m_ObjectHideFlags: 0

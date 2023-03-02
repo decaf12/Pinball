@@ -55,14 +55,15 @@ public class PauseMenuScript : MonoBehaviour
 
     private void QuitGame()
     {
+        Unpause();
         EditorApplication.isPlaying = false;
         Application.Quit();
     }
 
     private void ReturnToMainMenu()
     {
-        Game.ResetGame();
         Unpause();
+        Game.ResetGame();
         PauseMenu.SetActive(false);
         MainMenu.SetActive(true);
     }

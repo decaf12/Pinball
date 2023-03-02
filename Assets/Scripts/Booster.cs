@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Booster : MonoBehaviour
 {
-    private float multiplier = 20f;
-
-    public float GetMultiplier
+    private static Booster _instance;
+    public static Booster instance
     {
         get
         {
-            return multiplier;
+            if (!_instance)
+            {
+                _instance = FindObjectOfType<Booster>();
+            }
+            return _instance;
         }
     }
 }

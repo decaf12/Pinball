@@ -17,15 +17,7 @@ public class Field : MonoBehaviour
             return _instance;
         }
     }
-    
 
-    // void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.tag == "Ball")
-    //     {
-    //         BallList.instance.Add(other.GetComponent<BallScript>());
-    //     }
-    // }
 
     void OnTriggerExit(Collider other)
     {
