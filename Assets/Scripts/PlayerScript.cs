@@ -7,7 +7,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject BallPrefab;
     void Update()
     {
-        if (!Field.instance.HasBall)
+        if (!BallList.instance.HasBalls())
         {
             SpawnBall();
         }
@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
 
     private void SpawnBall()
     {
-        Instantiate(BallPrefab, Field.instance.Spawn);
+        GameObject newBall = Instantiate(BallPrefab, Field.instance.Spawn);
+        BallList.instance.Add(newBall.GetComponent<BallScript>());
     }
 }

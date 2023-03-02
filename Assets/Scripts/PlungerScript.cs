@@ -9,7 +9,6 @@ public class PlungerScript : MonoBehaviour
     private float minPower = 0f;
     public float maxPower = 100f;
     public Slider powerSlider;
-    List<Rigidbody> ballList;
     private bool ballReady;
 
     // Start is called before the first frame update
@@ -17,14 +16,13 @@ public class PlungerScript : MonoBehaviour
     {
         powerSlider.minValue = minPower;
         powerSlider.maxValue = maxPower;
-        ballList = new List<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ballReady = ballList.Count > 0;
-        powerSlider.gameObject.SetActive(ballReady && NoMovingBalls());
+        ballReady = BallList.instance.HasBalls();
+        powerSlider.gameObject.SetActive(ballReady && !BallList.instance.HasMovingBalls());
         
         powerSlider.value = power;
 
@@ -40,10 +38,7 @@ public class PlungerScript : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                foreach (Rigidbody r in ballList)
-                {
-                    r.AddForce(power * Vector3.forward);
-                }
+                BallList.instance.Map(r => r.GetComponent<Rigidbody>().AddForce(power * Vector3.forward));
             }
 
         }
@@ -53,25 +48,19 @@ public class PlungerScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ball"))
-        {
-            ballList.Add(other.gameObject.GetComponent<Rigidbody>());
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.gameObject.CompareTag("Ball"))
+    //     {
+    //         BallList.instance.Add(other.gameObject.GetComponent<BallScript>());
+    //     }
+    // }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Ball"))
         {
-            ballList.Remove(other.gameObject.GetComponent<Rigidbody>());
-            power = 0f;
+            power = minPower;
         }
-    }
-
-    private bool NoMovingBalls()
-    {
-        return ballList.All(ball => ball.velocity.magnitude == 0);
     }
 }
