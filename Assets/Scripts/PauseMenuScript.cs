@@ -56,8 +56,12 @@ public class PauseMenuScript : MonoBehaviour
     private void QuitGame()
     {
         Unpause();
-        EditorApplication.isPlaying = false;
-        Application.Quit();
+        
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 
     private void ReturnToMainMenu()

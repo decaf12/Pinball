@@ -38,7 +38,10 @@ public class StartMenuScript : MonoBehaviour
 
     private void QuitGame()
     {
-        EditorApplication.isPlaying = false;
-        Application.Quit();
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }
